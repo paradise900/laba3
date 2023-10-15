@@ -12,29 +12,23 @@ def sol(n):
     prod.sort()
 
     for i in reversed(range(len(prod))):
-        w = weights[prod[i][1]]
-        if capacity - w == 0:
-            score += w * prod[i][0]
-            capacity -= w
-            for _ in range(w):
+        weight = weights[prod[i][1]]
+        if capacity - weight >= 0:
+            score += weight * prod[i][0]
+            capacity -= weight
+            for _ in range(weight):
                 liters.append([items[prod[i][1]]])
-        elif capacity - w < 0:
-            score -= w * prod[i][0]
         else:
-            score += w * prod[i][0]
-            capacity -= w
-            for _ in range(w):
-                liters.append([items[prod[i][1]]])
+            score -= weight * prod[i][0]
     return liters, score
 
 
 ans, score = sol(9)
 for i in range(3):
     print(*ans[3 * i:3 * i + 3])
-print('Итоговые очки выживания - ', int(score))
-print()
+print(f'Итоговые очки выживания - {int(score)}\n')
 
 # extra task
 ans, score = sol(7)
 print(*ans)
-print('Итоговые очки выживания - ', int(score))
+print(f'Итоговые очки выживания - {int(score)}')
